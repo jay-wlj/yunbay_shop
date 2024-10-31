@@ -1,0 +1,23 @@
+imports: ["../../conf/common.yml"]
+loglevel: INFO
+debug: true
+topic: 
+channel: 
+nsqladdr: 172.17.6.140:4161
+maxnsqd: 2
+
+
+email:
+ sender: server@yunbay.com
+
+consumers:
+  useradd: 
+    channels: ["consume1"]
+    max_attempts: 0    
+  sendmail: 
+    channels: ["consume2"]    
+  mqurl: 
+    channels: ["consume_mq_url"]  
+    concurrent: 5       # 消息处理并发数
+    default_requeue_delay: 5s  
+    max_attempts: 0    # 无限次重试

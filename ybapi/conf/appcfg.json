@@ -1,0 +1,6 @@
+{
+    "ver": 1,
+    "invite_txt": "全球首家电商挖矿平台\r\n开店即挖矿，消费即挖矿，邀请即挖矿\r\n天天分红享不停\r\n注册即送价值500元YBT\r\n邀请一人送价值100元YBT，上不封顶",
+    "invite_img": "https://file.yunbay.com/upload/img/f5/f8/f5f8ad26819a471318d24631fa5055036712a87e.jpg",
+    "coins":[{"type":0,"name":"ybt"}, {"type":1,"name":"kt"}, {"type":3,"name":"snet"}, {"type":4,"name":"usd"}, {"type":5,"name":"hkd"}]
+}

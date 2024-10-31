@@ -1,0 +1,46 @@
+
+imports: ["../../conf/common.yml"]
+loglevel: INFO
+
+
+server:
+ listen: 0.0.0.0:92
+ checksign: true
+ debug: true
+ test: true
+ psqlurl: postgres://ybaccount:123456@172.17.6.140:5432/ybaccount?sslmode=disable
+ mqurls: ['172.17.6.140:4150', '172.17.6.140:4152']
+ ext:
+  sms_timeout: 300s
+  token_timeout: 720h
+  img_expires: 3600
+
+redis:
+  sms:
+    master:
+      addr: 172.17.6.140:6379
+      password: 123456
+      dbindex: 1
+      timeout: 10s
+  session:
+    master:
+      addr: 172.17.6.140:6379
+      password: 123456
+      dbindex: 2
+      timeout: 10s
+  imgcode:
+    master:
+      addr: 172.17.6.140:6379
+      password: 123456
+      dbindex: 3
+      timeout: 10s   
+
+appkeys:
+ account: 16c86816ab0cfa1493da230cdf356476
+ upload: bc6b7ed67224ea66763f9dfccdfb6cea
+ 
+servers:
+ account: http://172.17.6.140:92
+ 
+serverhost:
+ account: account.yunbay.com

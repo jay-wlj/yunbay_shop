@@ -1,0 +1,66 @@
+mqurls: ['172.17.6.140:4150', '172.17.6.139:4150','172.17.6.138:4150']
+
+redis:
+   pub:
+    master:
+      addr: 172.17.6.140:6379
+      password: 123456
+      dbindex: 0
+      timeout: 10s
+   api:
+    master:
+      addr: 172.17.6.140:6379
+      password: 123456
+      dbindex: 6
+      timeout: 10s
+
+common_redis:
+ addr: 172.17.6.140:6379
+ password: 123456
+ dbindex: 0
+ timeout: 10s
+
+appkeys:
+ account: 16c86816ab0cfa1493da230cdf356476
+ ybapi: a20331ad70081a25d0b00d0b0052d202
+ upload: bc6b7ed67224ea66763f9dfccdfb6cea
+ ybasset: 834ea8fafc216b4f63a53cc36ba2888d
+ ybproduct: tb9UuBY4GRr89SYzpVthbIF6onliYoyN
+ third_yunex: 4e1e16488b11c651a6b1663f8d6a74b7
+ ybpay: 1585c8ef31a825f9619328a631242338
+ ybeos: 5d9802e43623d39f1d314b8913e22f67
+ ybgoods: 8bbc65632ed57b1cb64225c331a68739
+ ybsearch: zYB63o2t3PwHNeH84NA8NuEkuypTBjk8
+ yborder: a8ce1b3db35486345c6705f78f07db6c
+
+# 服务间的调用 docker stack部署可改用 服务名+端口 直接走docker ingress网络,不用经过宿主机网络
+servers:
+ account: http://172.17.6.140:92
+ ybapi: http://172.17.6.140:90
+ ybasset: http://172.17.6.140:95
+ #ybasset: https://asset.yunbay.com
+ ybproduct: https://product.yunbay.com
+ ybgoods: http://172.17.6.140:96
+ chain: http://172.17.6.140:8080
+ #hotcoin: https://coinhot.io
+ hotcoin: https://test.coinhot.com
+ yunex: http://a.yunex.io
+ ybpay: http://172.17.6.140:2006
+ ybeos: http://172.17.6.140:2008
+ yborder: http://172.17.6.140:91
+ upload: http://172.17.6.140:2000
+
+serverhost:
+ account: account.yunbay.com
+ ybapi: api.yunbay.com
+ ybasset: asset.yunbay.com
+ ybproduct: product.yunbay.com
+ ybgoods: goods.yunbay.com
+ chain: 172.17.6.140
+ upload: upload.yunbay.com
+ hotcoin: test.coinhot.com
+ yunex: a.yunex.io
+ ybpay: 172.17.6.140
+ ybeos: 172.17.6.140
+ yborder: order.yunbay.com
+

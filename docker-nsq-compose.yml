@@ -1,0 +1,61 @@
+version: "3.7"
+services:
+    # 唯一性,在集群中的节点只能指向唯一的nsqlookupd服务
+    # 去中心化,即使nsqlookupd崩溃，也会不影响正在运行的nsqd服务
+    # 充当nsqd和naqadmin信息交互的中间件
+    # 提供一个http查询服务，给客户端定时更新nsqd的地址目录
+  nsqlookup: # 拓扑结点
+    image: nsqio/nsq:latest
+    ports:
+        - 4160:4160
+        - 4161:4161
+    command: /nsqlookupd
+    networks:
+        - yunbay_backend
+    deploy: # 部署配置
+      restart_policy: # 重启策略
+        condition: on-failure # 因错误退出
+
+  nsqd: # nsqd节点
+    image: nsqio/nsq:latest
+    ports:
+      - 4150:4150
+      - 4151:4151
+    volumes:
+      - /data/nsqd/:/data
+    depends_on:
+      - nsqlookup
+    command: /nsqd --lookupd-tcp-address=nsqlookup:4160 --data-path=/data   # nsqd数据持久目录
+    networks:
+        - yunbay_backend
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure        
+
+  nsqadmin: # nsq后台管理
+    image: nsqio/nsq:latest
+    ports:
+      - "4171"
+    command: /nsqadmin --lookupd-http-address=nsqlookup:4161
+    depends_on:
+      - nsqlookup
+    deploy:
+      restart_policy:
+        condition: on-failure         
+    # volumes:
+    #     - type: tmpfs
+    #       target: /tmp
+    #       tmpfs:
+    #         size: 20490   # 设置容量空间(4k倍数值)
+
+    networks:
+      yunbay_backend:
+        aliases:  # 该网络下此服务别名, 其它容器可通过服务名account或别名wlj_account访问到此服务
+          - nsqadmin
+
+networks:  
+  yunbay_backend:   # 与yunbay-compose 使用同一个网络,不然ybnsq服务得到的nsqd地址是nsq swarm里面的主机名,没共用网络导致解析不了ip
+    external: true  # 外部定义网络,即由docker network create创建的网络(注:stack命令不能创建新的可对接网络)     
+
+

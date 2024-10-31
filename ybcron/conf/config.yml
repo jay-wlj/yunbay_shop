@@ -1,0 +1,158 @@
+
+loglevel: INFO
+
+debug: true
+test: true  # 是否测试环境
+rediserver: 127.0.0.1:6379
+
+psqlurl:
+  asset: postgres://ybasset:123456@172.17.6.140:5432/ybasset?sslmode=disable
+  api: postgres://ybapi:123456@172.17.6.140:5432/ybapi?sslmode=disable
+  account: postgres://ybaccount:123456@172.17.6.140:5432/ybaccount?sslmode=disable
+
+redis:
+   pub:
+    master:
+      addr: 172.17.6.140:6379
+      password: 123456
+      dbindex: 0
+      timeout: 10s 
+    slave:
+      addr: 172.17.6.140:6379
+      password: 123456
+      dbindex: 0
+      timeout: 10s 
+
+#ybt返利(挖矿)配置
+rebat:
+ buyer_rebat: 0.7  # 买家得返利的%25
+ seller_rebat: 0.2  # 卖家得返利的%10
+ re_rebat: 0.1     # 推荐者得返利的%12,没有归平台所得  
+
+#空投奖励逾期回收配置
+air_drop:
+ timeout: 30  # 30天后回收剩余空投奖励
+
+orders:
+  newtime: 10m  # 新订单提醒时间(付款后)
+  newtips: 尊敬的云贝商家，您有新的订单产生，请及时登录云贝官网处理。
+
+mining:
+ standard: 1 # 基准难度 1kt
+ coefficient: 0.001 # 每日系数
+ powy: 3.1415926
+ online_time: '2018-07-21 00:00:00' # 上线时间(挖矿起始时间)
+ total_issue: 1000000000 # ybt总发行量10亿
+ project: 0.4
+ reward: 0.1
+ minepool: 0.5
+
+appkeys:
+ account: 16c86816ab0cfa1493da230cdf356476
+ ybapi:  a20331ad70081a25d0b00d0b0052d202
+ upload: bc6b7ed67224ea66763f9dfccdfb6cea
+ ybasset: 834ea8fafc216b4f63a53cc36ba2888d
+ ybproduct: tb9UuBY4GRr89SYzpVthbIF6onliYoyN
+ ybim: 9aa42d1f6f1f0091a71f36aa6005fd12
+ yborder: a8ce1b3db35486345c6705f78f07db6c
+
+servers:
+ account: http://172.17.6.140:92
+ ybapi: http://172.17.6.140:90
+ ybasset: http://172.17.6.140:95
+ ybproduct: http://product.yunbay.com
+ ybim: http://127.0.0.1:2004
+ hotcoin: test.coinhot.com
+ yborder: http://172.17.6.140:91
+
+serverhost:
+ account: account.yunbay.com
+ ybapi: api.yunbay.com
+ ybasset: asset.yunbay.com
+ ybproduct: product.yunbay.com 
+ ybim: im.yunbay.com
+ yborder: order.yunbay.com
+
+conversion_ratio:    
+  cny_threshold: "0.05"    # 实际货币上下浮动比例
+  kt_threshold: "0.1" # 数字倾向的上下浮动比例(相对于上一次)
+  ybtkt: "0.98" # ybt兑kt比例
+  snetkt: "0.9" # snet兑kt比例
+
+system_accounts:
+  sys_account: 0         #系统帐号
+  bzj_account: 8         #商家奖励保证金帐号
+  last_bonus_account: 10 #剩余分红的kt放入此帐户中
+
+project_ybt_allot:
+ -       
+  type: 0        #团队激励
+  percent: 0.25  #预发行解锁所占
+  user_id: 1     #团队激励的帐号
+  forever: 0.2   #永久冻结
+  fixdays: 180   #固定期限冻结
+  fix: 0.8       #国定冻结比例   
+ -      
+  type: 1        #项目研发
+  percent: 0.325 #预发行解锁所占
+  user_id: 2     #项目研发的帐号
+  forever: 0.6   #永久冻结
+  fixdays: 180   #固定期限冻结
+  fix: 0.4       #国定冻结比例
+ -  
+  type: 2        #YBT回购
+  percent: 0.125 #预发行解锁所占
+  user_id: 3     #ybt回购的帐号  
+  forever: 1     #永久冻结
+ -   
+  type: 3        #战略投资
+  percent: 0.3   #预发行解锁所占
+  forever: 0.2   #永久冻结
+  fixdays: 180   #固定期限冻结
+  fix: 0.7       #国定冻结比例
+  users:         #参与瓜分的用户id及所占比例
+   -
+    user_id: 51887
+    percent: 0.2
+   -
+    user_id: 51886
+    percent: 0.3
+   -
+    user_id: 51885
+    percent: 0.5    
+
+third_plat: # 第三方平台用户帐号
+  chain:    # yunbay平台
+    secret: 123
+  hotcoin:  # 热币平台
+    secret: yunbay7MvpeyzoCDNuhot
+    user_id: 12   
+    bonus_id: 20
+  yunex:    # yunex平台
+    key: 
+    secret: 
+    user_id: 21
+    bonus_id: 13  
+    ext:
+      transfer_secret: yunex_hello
+crons:
+ #rebat: 秒 分 时 日 月 周  # 每天凌晨1分计算昨日ybt分红数
+ snapshot: 2 0 0 * * ?  # 每天凌晨2秒执行快照
+ rebat: 0/5 * * * * ?  # 每天凌晨1分计算昨日ybt分红数
+ rebat_kt: 0 2 0 * * ?  # 每天凌晨1分计算昨日ybt分红
+ user_rebat: 0/5 * * * * ? # 每天凌晨1分计算用户昨日ybt奖励
+ tradflow: 0/5 * * * * ?  # 每隔1小时刷新交易数据
+ auto_cancel_orders: 0 */1 * * * ?  # 每隔1分钟判断是否有交易超时订单
+ auto_finish_orders: 0 */2 * * * ?  # 每隔2分钟判断是否有确认超时订单
+ chain_draw: 0 */5 * * * ?  # 每隔5分钟提交审核通过的提币申请
+ chain_draw_query: 30 */5 * * * ?  # 每隔5分钟查询提币状态
+ recovery_ybt: 0 0 23 * * ?  # 每天23点执行一次ybt空投回收 必须在rebat及rebat_kt脚本生成后
+ reward_ybt: 0 */3 * * * ?  # 每隔3分钟执行一次ybt空投
+ release_ybt_kt: 0 0 19 * * ? # 每天19点执行一次ybt及kt的释放
+ imcreate: 10 */5 * * * ?  # 定时注册im用户
+ #snap_thirdaccount: 5 1 0 * * ?  # 每天凌晨1分快照第三方平台持有ybt的数据
+ day_check: 15 0 10 * * ?  # 每天执行一次检测日报
+ currency_update: 0 */1 * * * ? # 每隔一分钟刷新一次汇率
+ of_orders_query: 0 */1 * * * ?  # 每隔1分钟查询一次欧飞充值的订单
+
+ 

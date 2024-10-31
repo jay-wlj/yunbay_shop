@@ -1,0 +1,181 @@
+
+imports: ["../../conf/common.yml"]
+loglevel: INFO
+
+
+server:
+ listen: 0.0.0.0:95
+ checksign: true
+ debug: true
+ test: true
+ psqlurl: postgres://ybasset:123456@172.17.6.140:5432/ybasset?sslmode=disable
+ mqurls: ['172.17.6.140:4150', '127.0.0.1:4152']
+ ext:
+  init_account_lock: 1
+  chainsign: false      # 是否对chain的接口进行签名  
+
+
+
+redis:
+  pub:
+    master:
+      addr: 172.17.6.140:6379
+      password: 123456
+      dbindex: 0
+      timeout: 10s 
+  asset:
+    master:
+      addr: 172.17.6.140:6379
+      password: 123456
+      dbindex: 5
+      timeout: 10s  
+
+appkeys:
+ account: 16c86816ab0cfa1493da230cdf356476
+ ybapi:  a20331ad70081a25d0b00d0b0052d202
+ upload: bc6b7ed67224ea66763f9dfccdfb6cea
+ ybasset: 834ea8fafc216b4f63a53cc36ba2888d
+ ybproduct: tb9UuBY4GRr89SYzpVthbIF6onliYoyN
+ third_yunex: 4e1e16488b11c651a6b1663f8d6a74b7
+ 
+servers:
+ account: http://172.17.6.140:92
+ api: http://172.17.6.140:90
+ ybasset: http://172.17.6.140:95
+ #ybasset: https://asset.yunbay.com
+ ybproduct: http://product.yunbay.com
+ chain: http://172.17.6.140:8080
+ #hotcoin: https://coinhot.io
+ hotcoin: https://test.coinhot.com
+ yunex: http://a.yunex.io
+
+ 
+serverhost:
+ account: account.yunbay.com
+ api: api.yunbay.com
+ ybasset: asset.yunbay.com
+ ybproduct: product.yunbay.com
+ chain: 172.17.6.140
+ #hotcoin: coinhot.io
+ hotcoin: test.coinhot.com
+ yunex: a.yunex.io
+
+#相对于KT的兑换比例 1KT = 1RMB * 1.0
+ktratio:
+ cny: 1.0
+
+#相对于rmb的兑换比例 1rmb = 1kt * 1.0
+rmbratio:
+ kt: 1.0 
+ ybt: 1.0
+ cny: 1
+
+
+#提取币种手续费
+drawfees:
+ - 
+  type: 0 #ybt
+  feetype: 0 #amount
+  val: 10
+  min: 0.01
+  daymaxpercent: 0.2 # 每日可提取百分比
+ - 
+  type: 1 #kt
+  feetype: 0  #amount
+  val: 10
+  min: 0.01
+ - 
+  type: 2 #cny
+  feetype: 1 #percent
+  val: 0.0002
+  min: 0.01
+
+#充提币开关
+chargeswitch:
+ - 
+  type: 0 #ybt
+  recharge: false
+  withdraw: false
+ - 
+  type: 1 #kt
+  recharge: false
+  withdraw: false
+ - 
+  type: 2 #cny
+  recharge: false
+  withdraw: false
+
+
+reward_ybt:
+  reg: 100  #注册空投数量
+  inviter: 100 #推荐人空投数量
+
+system_accounts:  # 相关系统帐号
+  bzj_account: 8    
+  ybt_account: 11 # YBT购买划入的公共帐号
+  kt_account: 12  # kt支付公共帐号
+  rmb_account: 13 # rmb币划扣相应kt的帐号
+  lotterys_account: 15 # 积分抽奖公共帐号
+project_ybt_allot:
+ -       
+  type: 0        #团队激励
+  percent: 0.25  #预发行解锁所占
+  user_id: 1     #团队激励的帐号
+  forever: 0.2   #永久冻结
+  fixdays: 180   #固定期限冻结
+  fix: 0.8       #国定冻结比例   
+ -      
+  type: 1        #项目研发
+  percent: 0.325 #预发行解锁所占
+  user_id: 2     #项目研发的帐号
+  forever: 0.6   #永久冻结
+  fixdays: 180   #固定期限冻结
+  fix: 0.4       #国定冻结比例
+ -  
+  type: 2        #YBT回购
+  percent: 0.125 #预发行解锁所占
+  user_id: 3     #ybt回购的帐号  
+  forever: 1     #永久冻结
+ -   
+  type: 3        #战略投资
+  percent: 0.3   #预发行解锁所占
+  forever: 0.2   #永久冻结
+  fixdays: 180   #固定期限冻结
+  fix: 0.7       #国定冻结比例
+  users:         #参与瓜分的用户id及所占比例
+   -
+    user_id: 51887
+    percent: 0.2
+   -
+    user_id: 51886
+    percent: 0.3
+   -
+    user_id: 51885
+    percent: 0.5    
+
+
+third_plat: # 第三方平台用户帐号
+  chain:    # yunbay平台
+    secret: 822a9b195fc18024e11a08cbacf658a7
+  hotcoin:  # 热币平台
+    key: 
+    secret: 
+    user_id: 20   
+    bonus_id: 20
+    withdarw_id: 23 # 用户提币到第三方的金额去向帐号
+  yunex:    # yunex平台
+    key: 91991e4def97bdd517e678ccd5c0ac856724ab7f6f3e9de14caa8325df51cccf
+    secret: W8ZLD2x4N11PeCpZt2mCDtTSe8KpQtS6FkSgtS1qwnrWTK3QPGIDfpYEW061UlEe
+    user_id: 21    
+    bonus_id: 22
+    withdarw_id: 23 # 用户提币到第三方的金额去向帐号
+    ext: 
+      transfer_secret: yunex_hello
+  miner:    # 流量矿石平台
+    key: miner
+    secret: 66da694ea61c48c8bcbb44fa8627a4e3
+    user_id: 24
+    withdarw_id: 25 # 用户提币到第三方的金额去向帐号
+    ext:
+      alarm_balance: 5000  # 余额小于5000即报警
+      alarm_email: 305898636@qq.com  # 报警发送的邮件

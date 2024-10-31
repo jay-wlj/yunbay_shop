@@ -1,0 +1,50 @@
+
+loglevel: INFO
+
+serverinfo:
+ listen: 0.0.0.0:98
+ checksign: true
+ debug: true
+ psqlurl: postgres://ybapi:123456@172.17.6.140:5432/ybapi?sslmode=disable
+ mqurls: ['172.17.6.140:4150', '127.0.0.1:4152']
+ ext:
+   mgr_uid: 1
+
+common_redis: 
+ addr: 172.17.6.140:6379
+ password: 123456
+ dbindex: 0
+ timeout: 10s
+ 
+im_redis: 
+ addr: 172.17.6.140:6379
+ password: 123456
+ dbindex: 3
+ timeout: 10s
+
+
+appkeys:
+ account: 16c86816ab0cfa1493da230cdf356476
+ ybapi: a20331ad70081a25d0b00d0b0052d202
+ upload: bc6b7ed67224ea66763f9dfccdfb6cea
+ ybasset: 834ea8fafc216b4f63a53cc36ba2888d
+ ybproduct: tb9UuBY4GRr89SYzpVthbIF6onliYoyN
+
+
+servers:
+ account: http://172.17.6.140:92
+ ybapi: http://172.17.6.140:90
+ ybasset: http://172.17.6.140:95
+ ybproduct: http://product.yunbay.com
+ netease: https://api.netease.im
+
+serverhost:
+ account: account.yunbay.com
+ ybapi: api.yunbay.com
+ ybasset: asset.yunbay.com
+ ybproduct: product.yunbay.com
+ netease: api.netease.im
+
+im_key: f3530eedc5dbe80343145de90d063ba4
+im_secret: d87ed480584f
+im_enalbe: true

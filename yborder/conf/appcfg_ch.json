@@ -1,0 +1,6 @@
+{
+    "ver": 1,
+    "invite_txt": "全球首家电商红利共享平台，购物、邀请好友、商品销售等都可获得平台积分\"云贝\"，持有的云贝可在平台消费购物，还可坐享每日现金红包奖励。\r\n现>在注册即送50云贝，每邀请一人成功实名认证再送100云贝，上不封顶。",
+    "invite_img": "https://file.yunbay.com/upload/img/c4/4f/c44fef288b866b52e052629ee4508644b8b51fbf.png",
+    "coins":[{"type":0,"name":"ybt"}, {"type":1,"name":"kt"}, {"type":3,"name":"snet"}, {"type":4,"name":"usd"}, {"type":5,"name":"hkd"}]
+}

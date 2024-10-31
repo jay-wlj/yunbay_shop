@@ -1,0 +1,53 @@
+
+loglevel: INFO
+
+
+server:
+ listen: 0.0.0.0:97
+ checksign: true
+ debug: true
+ test: true
+ psqlurl: postgres://ybasset:123456@172.17.6.140:5432/ybasset?sslmode=disable
+ mqurls: ['172.17.6.140:4150', '172.17.6.140:4152']
+ ext:
+  bank_cfg: ./card.csv
+  order_over_time: 15m
+
+
+appkeys:
+ account: 16c86816ab0cfa1493da230cdf356476
+ ybapi:  a20331ad70081a25d0b00d0b0052d202
+ upload: bc6b7ed67224ea66763f9dfccdfb6cea
+ ybasset: 834ea8fafc216b4f63a53cc36ba2888d
+ ybproduct: tb9UuBY4GRr89SYzpVthbIF6onliYoyN
+ third_yunex: 4e1e16488b11c651a6b1663f8d6a74b7
+ ybeos: 5d9802e43623d39f1d314b8913e22f67
+ 
+ api_redis:
+ addr: 172.17.6.140:6379
+ password: 123456
+ dbindex: 6
+ timeout: 10s
+
+
+servers:
+ account: http://172.17.6.140:92
+ api: http://172.17.6.140:90
+ ybasset: http://172.17.6.140:95
+ cleos: http://127.0.0.1:2007               # cleos结点代理服务
+ 
+serverhost:
+ account: account.yunbay.com
+ api: api.yunbay.com
+ ybasset: asset.yunbay.com
+ ybproduct: product.yunbay.com
+ chain: 172.17.6.140
+ #hotcoin: coinhot.io
+ hotcoin: test.coinhot.com
+ yunex: a.yunex.io
+
+
+eosconf:
+  from: yunbayroot21
+  to: lilydick1234
+  pri_key: 5K1YRsDxXExR92ipZm1FH5RhRQqoKbJqkYXcHsvaNqzjgsj9Uxu

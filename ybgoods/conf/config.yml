@@ -1,0 +1,53 @@
+
+imports: ["../../conf/common.yml"]
+loglevel: INFO
+
+serverinfo:
+ listen: 0.0.0.0:96
+ checksign: true
+ debug: true
+ psqlurl: postgres://ybapi:123456@172.17.6.140:5432/ybapi?sslmode=disable
+ mqurls: ['172.17.6.140:4150', '172.17.6.140:4152']
+ 
+
+redis:
+   pub:
+    master:
+      addr: 172.17.6.140:6379
+      password: 123456
+      dbindex: 0
+      timeout: 10s 
+    slave:
+      addr: 172.17.6.140:6379
+      password: 123456
+      dbindex: 0
+      timeout: 10s 
+   api:
+    master:
+      addr: 172.17.6.140:6379
+      password: 123456
+      dbindex: 6
+      timeout: 10s  
+
+
+  
+
+appkeys:
+ account: 16c86816ab0cfa1493da230cdf356476
+ ybapi: a20331ad70081a25d0b00d0b0052d202
+ product: 8c3b6f2b5bd23b2f5ce1eebc015db550
+ ybgoods: 8bbc65632ed57b1cb64225c331a68739
+
+servers:
+ account: http://172.17.6.140:92
+ ybapi: http://172.17.6.140:90
+ product: http://172.17.6.140:90
+ ybgoods: http://172.17.6.140:96
+ ybasset: http://172.17.6.140:95
+
+serverhost:
+ account: account.yunbay.com
+ ybapi: api.yunbay.com
+ product: product.yunbay.com
+ ybasset: asset.yunbay.com
+ ybgoods: goods.yunbay.com

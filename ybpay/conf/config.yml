@@ -1,0 +1,119 @@
+
+loglevel: INFO
+
+
+server:
+ listen: 0.0.0.0:94
+ checksign: true
+ debug: true
+ test: true
+ psqlurl: postgres://ybasset:123456@172.17.6.140:5432/ybasset?sslmode=disable
+ mqurls: ['172.17.6.140:4150', '172.17.6.140:4152']
+ ext:
+  bank_cfg: ./card.csv
+  order_over_time: 15m
+
+
+appkeys:
+ account: 16c86816ab0cfa1493da230cdf356476
+ ybapi:  a20331ad70081a25d0b00d0b0052d202
+ upload: bc6b7ed67224ea66763f9dfccdfb6cea
+ ybasset: 834ea8fafc216b4f63a53cc36ba2888d
+ ybproduct: tb9UuBY4GRr89SYzpVthbIF6onliYoyN
+ third_yunex: 4e1e16488b11c651a6b1663f8d6a74b7
+ 
+servers:
+ account: http://172.17.6.140:92
+ ybapi: http://172.17.6.140:90
+ ybasset: http://172.17.6.140:95
+ #ybasset: https://asset.yunbay.com
+ ybproduct: http://product.yunbay.com
+ chain: http://172.17.6.140:8080
+ #hotcoin: https://coinhot.io
+ hotcoin: https://test.coinhot.com
+ yunex: http://a.yunex.io
+
+ 
+serverhost:
+ account: account.yunbay.com
+ ybapi: api.yunbay.com
+ ybasset: asset.yunbay.com
+ ybproduct: product.yunbay.com
+ chain: 172.17.6.140
+ #hotcoin: coinhot.io
+ hotcoin: test.coinhot.com
+ yunex: a.yunex.io
+
+
+redis:
+  asset:
+    master:
+      addr: 172.17.6.139:6379
+      password: 123456
+      dbindex: 5
+      timeout: 10s  
+
+
+
+alipay: # 支付宝相关配置
+  appid: 2018112862400055
+  public_key: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmUju0C8stxF/lknnB3tr7DPQ6X9BhQldqy1+0LfKfkmdYV/ds+/1YhnyycvNKAKq9liNn1CMxHPOwb9+BP5PoT3c35epB7uP9K7u7jL3wwNnMGRHYQJ3gFBNdUPwcGsClZWuVEA4SxQuBWwxD0BWZurpOA5YnfEo4+y3Vl3GBIqSzjovfsi5WieGpByxPYI5qtVhIPP6rIRPDF/b2Hh5qO+m9dr8EnNMlmX5Mg1Jo6rIFA3yf6zJryLdBviNrq4wfG2PCVDJSN7IYKyXz4fVaMLwSWiWMq7J4esD+qUSXVf8WX5zQKULFfQaP0qMb/NWx6pm0PDkE8WGGqJ2G/SdzQIDAQAB'  # 支付宝的公钥
+  private_key: 'MIIEpAIBAAKCAQEAoxFdQqlcry+wlWUeDeIGGI/lrOsRFQkXYghkkI9vRLYfM9r12f5NLoCQQ0faEcbuWJOyHLIKyf0GUIvlfEcmoB5QjTDcuHr2zztlBkRl72CuOTRWwH7GgQctOOMKaY+OGzkoemyagtaOlyJAQ0fnfqA7ztoHZA5L2LVhLR4hr/CBT84rxa72ZJzWUTrKL8ZFTHFXgbrv5FxuDd59YYn4rLSpeD9DmAgw9FDv7zFGD5kKNGbjB66vb+9fJ4F56Nw7KNZF3TYWBCcTzqtJ0M2UaUAH10ZcFPba1OeHU/efXlZFAX9gcJS3/Q9Oqilzrwh7zszeLMMtCbpz6XTB1OXNBQIDAQABAoIBADjrar5GF9AeuWisbx0xdCdGs0j0lHXfQoY5n8DGEHTPjXywRXjeR1qgDbsubXQfGDta8qUJkLKI25dp/aSvwU/KxRtDnwfWBCi59r2FSn+QI8BcAJwYpHmNY7+joJLQRS5DeVmiZxycgBFJJ11Uz/1nOPkvKb1HMDpotY7mIaQjpJuGF0NtDtYPakFGFJXxfgYLzlBZK/33Vud1R2BriEPjPsl3cnsN+1it9K3nSo25R/ZXd04holUObBqAszCGobCXFq/fEleyW91m0BmWx6+hPmti9hMEdJq9tgHmz79Vff+s8dFJrhgJCMUBPg6IcQ87I4cGqMEUYF3EWHFrzAECgYEAzaz1xOcXoKATqohGMmUTxz/09xobDvrScJ1MIeLGysrBvmOcugqWV+yAA3wuYhFbJg1YXW2SE6Zc9Op53nlJnTUx98I9P+vAYeyQmJtQhYKSsP+wQAdSdF2tXe7Gh9gb/guOAxcryIAtVZOuibJVtbJLSDCo9r+nTPWIvneswsUCgYEAyveNNqSHpIQNQ2mETmzC1M4FWPjuY6FMhUOsG/UVW0djMurYkSJdxF1u7AxHxp4AxVCl5GRuKWM8MDcRNljbguD3hxmy77as7tpreQbboNizW/ua7XpA/FdrZIgZCSGhk1A95I2y5BlLbQBYO66l+efoSUgKdTqp5eNaBBr4hUECgYEAyTQaebVYd9ohYwJNKZ+X6aO3kMQJFG5qz6ARilS/BEO1pPrtp1IUIY9K7B3fgjBYarFDcKJv9Kka5r0621jrms8fQrDSGmYWnbU+/wtxiipiNqTrVrfTAeNiZjHgJaRUPgIvuvY/7rT1pHIEnM/I6SayXry7jiePEspgK3QHncECgYEAnQLH4P+CVwg4Ym/cA/cq+QivJlbbw4Lh+S2SlMYRUV12Jct64TteoitNRZlyZPmRyxJKYtY2ShoUU5Al5o7ysNprYb3FqJ7+RH//J87gVBuPFJcdEJzEbPELiOenxmKX5afrWUUsoDvZF2du2iyPBTYbgaUTQgCxsb8gwZBDtIECgYADc0fmO5ark1SYEjTcunUZKrraqVfV/5zpKS3x6AauCjv1Y3K8B6Ck4sCSUSAS3HCmR/zpgaZQnImJYXD4aRO3EdaqzmUitwbEL6/j2ZRGB9+U3Vt+So/In77bP7KzwFT3d1BINGt8RZ+pAr2ww/Mfyk26N9ZFtesTJhaepsyBvA==' # 应用程序的私钥
+  product_code: 'QUICK_MSECURITY_PAY'  
+  notify_url: 'http://202.104.136.197:2006/v1/alipay/trade/notify'
+
+weixin: # 微信支付相关设置
+  appid: wxc3471914bc09ffd9
+  appkey: 768e3b850c552ea71b2c44d495779477
+  mchid: 1537894091
+  sanbox: true  # 是否沙箱环境
+  notify_url: 'http://202.104.136.197:2006/v1/weixin/trade/notify'
+
+bank:
+  default_icon: https://file.yunbay.com/upload/img/5d/80/5d80da746628a466902a9d60243f8e4bc1fba1a2.png
+  # support_banks: ['中国银行', '中国工商银行', '中国农业银行', '中国建设银行', '交通银行', '中国邮政储蓄银行', '中信银行', '招商银行', '广发银行', '浦发银行', '平安银行']
+  support_banks:
+    中国银行: https://file.yunbay.com/upload/img/8b/42/8b42119080e760ceb99ce256712c5f39b816f901.png
+    中国工商银行: https://file.yunbay.com/upload/img/ac/cc/accc13dd0d5a9ea9b9c14e545f343953b1d00390.png
+    中国农业银行: https://file.yunbay.com/upload/img/24/46/244691ae9066024e39e4f2ac6a7ffd771918ef79.png
+    中国建设银行: https://file.yunbay.com/upload/img/88/df/88dfecd372d54605095904f291f75d72b4f26a97.png
+    交通银行: https://file.yunbay.com/upload/img/db/5c/db5cda0ba11c2edff0960aaafea3d0286f8da87d.png
+    中国邮政储蓄银行: https://file.yunbay.com/upload/img/43/b6/43b6263bd2edcb3bb08a24d0979010a070face4d.png
+    中信银行: https://file.yunbay.com/upload/img/a3/b4/a3b4e56558a166108b53eace3e16460c56be244a.png
+    招商银行: https://file.yunbay.com/upload/img/e1/50/e1503d57b2ede45b1f4b2f8aadb457e99aa2ce66.png
+    广发银行: https://file.yunbay.com/upload/img/e5/61/e561eb5ffbc96c82fa9b3c7d0af87ca0137ac056.png
+    浦发银行: https://file.yunbay.com/upload/img/6a/4a/6a4ab7143ca15e7b682c0471dab4b601c387856c.png
+    平安银行: https://file.yunbay.com/upload/img/5d/6d/5d6d9d141d4674c23f4856ae27265b076afa231b.png
+    # -
+    #   name: "中国银行"
+    #   icon: "https://file.yunbay.com/upload/img/8b/42/8b42119080e760ceb99ce256712c5f39b816f901.png"
+    # -
+    #   name: "中国工商银行"
+    #   icon: "https://file.yunbay.com/upload/img/ac/cc/accc13dd0d5a9ea9b9c14e545f343953b1d00390.png"
+    # -
+    #   name: "中国农业银行"
+    #   icon: ""
+    # -
+    #   name: "中国建设银行"
+    #   icon: "https://file.yunbay.com/upload/img/88/df/88dfecd372d54605095904f291f75d72b4f26a97.png"
+    # -
+    #   name: "交通银行"
+    #   icon: "https://file.yunbay.com/upload/img/db/5c/db5cda0ba11c2edff0960aaafea3d0286f8da87d.png"
+    # -
+    #   name: "中国邮政储蓄银行"
+    #   icon: "https://file.yunbay.com/upload/img/43/b6/43b6263bd2edcb3bb08a24d0979010a070face4d.png"
+    # -
+    #   name: "中信银行"
+    #   icon: "https://file.yunbay.com/upload/img/a3/b4/a3b4e56558a166108b53eace3e16460c56be244a.png"                                    
+    # -
+    #   name: "招商银行"
+    #   icon: ""  
+    # -
+    #   name: "广发银行"
+    #   icon: ""            
+    # -
+    #   name: "浦发银行"
+    #   icon: ""          
+    # -
+    #   name: "平安银行"
+    #   icon: ""         

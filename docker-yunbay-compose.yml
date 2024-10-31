@@ -1,0 +1,307 @@
+version: "3.2"
+services:
+
+  # redis:
+  #   image: redis:alpine
+  #   ports:
+  #     - "6379"
+  #   networks:
+  #     - frontend
+  #   deploy:
+  #     replicas: 2
+  #     update_config:
+  #       parallelism: 2
+  #       delay: 10s
+  #     restart_policy:
+  #       condition: on-failure
+
+  # db:
+  #   image: postgres
+  #   volumes:
+  #     - db-data:/var/lib/postgresql/data
+  #   networks:
+  #     - /opt/conf
+  #   deploy:
+  #     placement:
+  #       constraints: [node.role == manager]
+
+  # account:
+  #   image: nginx
+  #   ports:
+  #     - 902:92
+  #   networks:
+  #     #- frontend
+  #     - backend
+  #   volumes:
+  #     - conf-data:/opt
+  #   # depends_on:
+  #   #   - redis
+  #   #command: -config /opt/account/conf/config.yml
+  #   deploy:
+  #     replicas: 1
+  #     update_config:
+  #       parallelism: 2
+  #     restart_policy:
+  #       condition: on-failure
+
+  account: # 帐号服务
+    image: 172.17.6.140:5000/jayden21/account:latest
+    ports:
+      - 92:92
+    networks:
+      - backend:
+    volumes:
+      - conf-data:/opt
+      - /tmp/logs:/tmp/logs
+    # depends_on:
+    #   - redis
+    command: -config /opt/account/conf/config.yml -log_dir /tmp/logs/account
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+      restart_policy:
+        condition: on-failure
+
+  ybapi: # 公共服务
+    image: 172.17.6.140:5000/jayden21/ybapi:latest
+    ports:
+      - 90:90
+    networks:
+      #- frontend
+      - backend
+    volumes:
+      - conf-data:/opt  
+      - /tmp/logs:/tmp/logs
+    command: -config /opt/ybapi/conf/config.yml -log_dir /tmp/logs/ybapi
+    # depends_on:
+    #   - db
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  ybgoods: # 商品服务
+    image: 172.17.6.140:5000/jayden21/ybgoods:latest
+    ports:
+      - 96:96
+    networks:
+      - backend
+    volumes:
+      - conf-data:/opt 
+      - /tmp/logs:/tmp/logs
+    command: -config /opt/ybgoods/conf/config.yml -log_dir /tmp/logs/ybgoods      
+    # depends_on:
+    #   - redis
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+      restart_policy:
+        condition: on-failure
+
+  yborder: # 订单服务
+    image: 172.17.6.140:5000/jayden21/yborder:latest
+    ports:
+      - 91:91
+    networks:
+      - backend
+    volumes:
+      - conf-data:/opt 
+      - /tmp/logs:/tmp/logs
+    command: -config /opt/yborder/conf/config.yml -log_dir /tmp/logs/yborder        
+    # depends_on:
+    #   - redis
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+      restart_policy:
+        condition: on-failure
+
+  ybasset: # 资产服务
+    image: 172.17.6.140:5000/jayden21/ybasset:latest
+    ports:
+      - 95:95
+    networks:
+      - backend
+    volumes:
+      - conf-data:/opt 
+      - /tmp/logs:/tmp/logs
+    command: -config /opt/ybasset/conf/config.yml -log_dir /tmp/logs/ybasset    
+    # depends_on:
+    #   - redis
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+      restart_policy:
+        condition: on-failure
+
+  ybpay: # 第三方支付服务
+    image: 172.17.6.140:5000/jayden21/ybpay:latest
+    ports:
+      - 94:94
+    networks:
+      - backend
+    volumes:
+      - conf-data:/opt 
+      - /tmp/logs:/tmp/logs
+    command: -config /opt/ybpay/conf/config.yml -log_dir /tmp/logs/ybpay      
+    # depends_on:
+    #   - redis
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+      restart_policy:
+        condition: on-failure
+
+  ybeos: # eos节点
+    image: 172.17.6.140:5000/jayden21/ybeos:latest
+    ports:
+      - 97:97
+    networks:
+      - backend
+    volumes:
+      - conf-data:/opt 
+    command: -config /opt/ybeos/conf/config.yml        
+    # depends_on:
+    #   - redis
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+      restart_policy:
+        condition: on-failure 
+
+  ybim: # im服务
+    image: 172.17.6.140:5000/jayden21/ybim:latest
+    ports:
+      - 98:98
+    networks:
+      - backend
+    volumes:
+      - conf-data:/opt 
+    command: -config /opt/ybim/conf/config.yml        
+    # depends_on:
+    #   - redis
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+      restart_policy:
+        condition: on-failure  
+  
+  ybsearch: # 搜索服务
+    image: 172.17.6.140:5000/jayden21/ybsearch:latest
+    ports:
+      - 93:93
+    networks:
+      - backend
+    volumes:
+      - conf-data:/opt 
+    command: -config /opt/ybsearch/conf/config.yml        
+    # depends_on:
+    #   - redis
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+      restart_policy:
+        condition: on-failure
+
+  ybnsq: # nsq消息服务
+    image: 172.17.6.140:5000/jayden21/ybnsq:latest
+    networks:
+      - backend
+    volumes:
+      - conf-data:/opt 
+      - /tmp/logs:/tmp/logs
+    # extra_hosts: # 添加域名绑定
+    #   - "node1: 172.17.6.140"
+    #   - "node2: 172.17.6.139"
+    #   - "node3: 172.17.6.138"
+    command: -config /opt/ybnsq/conf/config.yml -log_dir /tmp/logs/ybnsq        
+    # depends_on:
+    #   - redis
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+      restart_policy:
+        condition: on-failure
+
+  # ybupload: # 文件上传服务(单独supervisor部署即可)
+  #   image: 172.17.6.140:5000/jayden21/ybupload:latest
+  #   networks:
+  #     - backend
+  #   ports:
+  #     - 2000:2000
+  #   volumes:
+  #     - conf-data:/opt 
+  #     - /tmp/logs:/tmp/logs
+  #   environment:
+  #     - GOOGLE_APPLICATION_CREDENTIALS: /opt/upload/conf/store.json # google存储证书
+  #   command: -config /opt/upload/conf/config.yml -log_dir /tmp/logs/ybupload        
+  #   deploy:
+  #     replicas: 1
+  #     update_config:
+  #       parallelism: 2
+  #     restart_policy:
+  #       condition: on-failure
+
+  ybcron: # 定时程序
+    image: 172.17.6.140:5000/jayden21/ybcron:latest
+    networks:
+      - backend
+    volumes:
+      - conf-data:/opt 
+      - /tmp/logs:/tmp/logs
+    command: -config /opt/ybcron/conf/config.yml -log_dir /tmp/logs/ybcron       
+    # depends_on:
+    #   - redis
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+      restart_policy:
+        condition: on-failure        
+            
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "9001:8080"
+    stop_grace_period: 1m30s
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+        
+  portainer:
+    image: portainer/portainer
+    ports:
+      - "9002:9000"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+
+networks:
+  #frontend:
+  backend:
+
+# 全局命名卷    
+volumes:
+  conf-data:
+    driver_opts:
+      type: "nfs4"
+      o: "addr=172.17.6.140,nolock,soft,rw" # 需要在此节点上安装nfs-utils,并开启服务
+      device: ":/opt"
+  
